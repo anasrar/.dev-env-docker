@@ -10,7 +10,7 @@ Boilerplate `Dockerfile` for running development environments inside docker cont
 
 # Installation
 
-- `docker build -t <image name> -f <folder/Dockerfile> .`
+- `docker build -t <image name> --target dev -f <folder/Dockerfile> .`
 - `docker run -it --name <container name> <image name> bash`
 - open `nvim`, run `:PackerInstall` and restart `nvim`
 - edit `~/.dotfiles/neovim/.config/nvim/lua/LSP/main.lua` and uncomment LSP
