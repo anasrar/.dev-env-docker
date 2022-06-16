@@ -9,21 +9,22 @@ FROM base AS dev
 # ## utilities
 RUN apk add --no-cache bash curl git
 
-# ## install lsp, linter and dap
-RUN npm i --location=global typescript typescript-language-server eslint_d @fsouza/prettierd vscode-langservers-extracted @volar/vue-language-server svelte-language-server
-RUN git clone https://github.com/microsoft/vscode-node-debug2.git ~/.DAP/vscode-node-debug2
-RUN cd ~/.DAP/vscode-node-debug2 && npm i
-RUN cd ~/.DAP/vscode-node-debug2 && NODE_OPTIONS=--no-experimental-fetch npm run build
-# for using chrome debug inside docker container, you have to add flag `--network host`
-# `docker run --network host <image name> <command>`
-RUN git clone https://github.com/Microsoft/vscode-chrome-debug ~/.DAP/vscode-chrome-debug
-RUN cd ~/.DAP/vscode-chrome-debug && npm i
-RUN cd ~/.DAP/vscode-chrome-debug && npm run build
-# TODO: create clean up script after build DAP
-
 # ## install tmux, lazygit, neovim, tree-sitter, fd, ripgrep, stow, build-base (gcc), and packer
 RUN apk add --no-cache tmux lazygit neovim tree-sitter tree-sitter-cli fd ripgrep stow build-base
 RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+# ## install lsp, linter and dap
+# RUN npm i --location=global typescript typescript-language-server eslint_d @fsouza/prettierd vscode-langservers-extracted @volar/vue-language-server svelte-language-server
+# RUN git clone https://github.com/microsoft/vscode-node-debug2.git ~/.DAP/vscode-node-debug2
+# RUN cd ~/.DAP/vscode-node-debug2 && npm i
+# RUN cd ~/.DAP/vscode-node-debug2 && NODE_OPTIONS=--no-experimental-fetch npm run build
+# for using chrome debug inside docker container, you have to add flag `--network host`
+# `docker run --network host <image name> <command>`
+# RUN git clone https://github.com/Microsoft/vscode-chrome-debug ~/.DAP/vscode-chrome-debug
+# RUN cd ~/.DAP/vscode-chrome-debug && npm i
+# RUN cd ~/.DAP/vscode-chrome-debug && npm run build
+# TODO: create clean up script after build DAP
+# NOTE: because DAP create large size on build image, I decide to bind volume on `compose.yml`
 
 # ## clone dotfiles (bash, neovim, lazygit, and tmux)
 RUN git clone --depth 1 https://github.com/anasrar/.dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./stow.sh bash && ./stow.sh neovim && ./stow.sh lazygit && ./stow.sh tmux
