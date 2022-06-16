@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  devdeno:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+      target: "dev"
+    command: "bash"
+    volumes:
+      - ".:/root/project"
+    ports:
+      - "9229:9229" # debugging port

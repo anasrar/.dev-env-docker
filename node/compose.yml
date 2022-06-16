@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  devnode:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+      target: "dev"
+    command: "bash"
+    volumes:
+      - ".:/root/project"
+      - "~/.DAP:/root/.DAP" # DAP bind
+    ports:
+      - "9229:9229" # debugging port
+      - "3000:3000" # vite web server port
+  devdebugnode:
+    extends: "devnode"
+    network_mode: "host" # need to bind host network to debugging using chrome: https://docs.docker.com/network/host/

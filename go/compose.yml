@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  devgo:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+      target: "dev"
+    command: "bash"
+    volumes:
+      - ".:/root/project"
+  devdebuggo:
+    extends: "devgo"
+    # issue: https://github.com/moby/moby/issues/21051#issuecomment-325036902
+    cap_add:
+      - "SYS_PTRACE"
+    security_opt:
+      - "apparmor:unconfined"
