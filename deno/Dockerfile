@@ -1,9 +1,10 @@
-FROM denoland/deno:alpine
+FROM denoland/deno:alpine AS base
 WORKDIR /root
 
 # # update repo packages
 RUN echo -e "http://dl-cdn.alpinelinux.org/alpine/v3.16/main\nhttp://dl-cdn.alpinelinux.org/alpine/v3.16/community" > /etc/apk/repositories
 
+FROM base AS dev
 # # development env
 # ## utilities
 RUN apk add --no-cache bash curl git
