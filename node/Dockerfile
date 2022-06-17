@@ -14,7 +14,7 @@ RUN apk add --no-cache tmux lazygit neovim tree-sitter tree-sitter-cli fd ripgre
 RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # ## install lsp, linter and dap
-# RUN npm i --location=global typescript typescript-language-server eslint_d @fsouza/prettierd vscode-langservers-extracted @volar/vue-language-server svelte-language-server
+RUN npm i --location=global typescript typescript-language-server eslint_d @fsouza/prettierd vscode-langservers-extracted @volar/vue-language-server svelte-language-server
 # RUN git clone https://github.com/microsoft/vscode-node-debug2.git ~/.DAP/vscode-node-debug2
 # RUN cd ~/.DAP/vscode-node-debug2 && npm i
 # RUN cd ~/.DAP/vscode-node-debug2 && NODE_OPTIONS=--no-experimental-fetch npm run build
