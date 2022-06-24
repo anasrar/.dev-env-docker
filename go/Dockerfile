@@ -9,8 +9,8 @@ FROM base AS dev
 # ## utilities
 RUN apk add --no-cache bash curl git
 
-# ## install tmux, lazygit, neovim, tree-sitter, fd, ripgrep, stow, build-base (gcc), and packer
-RUN apk add --no-cache tmux lazygit neovim tree-sitter tree-sitter-cli fd ripgrep stow build-base
+# ## install tmux, lazygit, neovim, tree-sitter, fd, ripgrep, stow, and packer
+RUN apk add --no-cache tmux lazygit neovim tree-sitter tree-sitter-cli fd ripgrep stow
 RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # ## install lsp, linter, and dap
@@ -22,6 +22,10 @@ RUN go install github.com/go-delve/delve/cmd/dlv@latest
 
 # ## clone dotfiles (bash, neovim, lazygit, and tmux)
 RUN git clone --depth 1 https://github.com/anasrar/.dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./stow.sh bash && ./stow.sh neovim && ./stow.sh lazygit && ./stow.sh tmux
+
+# ## compile noevim plugin
+RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # ## tmux color and UTF8
 ENV TERM xterm-256color
