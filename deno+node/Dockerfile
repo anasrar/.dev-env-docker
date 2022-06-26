@@ -20,6 +20,9 @@ RUN apk add --no-cache bash curl git
 RUN apk add --no-cache tmux lazygit neovim tree-sitter tree-sitter-cli fd ripgrep stow
 RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
+# ## install pnpm
+RUN npm i --location=global pnpm
+
 # ## install lsp, linter and dap
 RUN npm i --location=global typescript typescript-language-server eslint_d @fsouza/prettierd vscode-langservers-extracted @volar/vue-language-server svelte-language-server
 # RUN git clone https://github.com/microsoft/vscode-node-debug2.git ~/.DAP/vscode-node-debug2
@@ -36,9 +39,13 @@ RUN npm i --location=global typescript typescript-language-server eslint_d @fsou
 # ## clone dotfiles (bash, neovim, lazygit, and tmux)
 RUN git clone --depth 1 https://github.com/anasrar/.dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./stow.sh bash && ./stow.sh neovim && ./stow.sh lazygit && ./stow.sh tmux
 
-# ## compile noevim plugin
+# ## compile neovim plugin
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+# ## tree-sitter parser
+RUN wget https://github.com/anasrar/nvim-treesitter-parser-bin/releases/download/alpine/all.zip
+RUN unzip -j all.zip *.so -d ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/
 
 # ## tmux color and UTF8
 ENV TERM xterm-256color
