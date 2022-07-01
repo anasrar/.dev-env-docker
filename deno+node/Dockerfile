@@ -20,8 +20,8 @@ RUN apk add --no-cache bash curl git
 RUN apk add --no-cache tmux lazygit neovim tree-sitter tree-sitter-cli fd ripgrep stow
 RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-# ## install pnpm
-RUN npm i --location=global pnpm
+# ## install pnpm and yarn
+RUN npm i --location=global --force pnpm yarn
 
 # ## install lsp, linter and dap
 RUN npm i --location=global typescript typescript-language-server eslint_d @fsouza/prettierd vscode-langservers-extracted @volar/vue-language-server svelte-language-server
