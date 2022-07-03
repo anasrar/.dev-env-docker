@@ -29,8 +29,9 @@ RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # ## tree-sitter parser
-RUN wget https://github.com/anasrar/nvim-treesitter-parser-bin/releases/download/alpine/all.zip
+RUN wget https://github.com/anasrar/nvim-treesitter-parser-bin/releases/download/linux/all.zip
 RUN unzip -j all.zip *.so -d ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/
+RUN rm all.zip
 
 # ## tmux color and UTF8
 ENV TERM xterm-256color
