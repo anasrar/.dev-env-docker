@@ -9,6 +9,7 @@ services:
     command: "tail -F /dev/null"
     volumes:
       - ".:/root/project"
+      - "~/.DAP:/root/.DAP" # DAP bind
     working_dir: "/root/project"
     ports:
       - "9229:9229" # debugging port
