@@ -12,7 +12,8 @@ services:
       - "~/.DAP:/root/.DAP" # DAP bind
     ports:
       - "9229:9229" # debugging port
-      - "3000:3000" # vite web server port
-  devdebugnode:
-    extends: "devnode"
-    network_mode: "host" # need to bind host network to debugging using chrome: https://docs.docker.com/network/host/
+      - "5173:5173" # vite web server port
+      - "4173:4173" # vite web server port
+  # devdebugnode:
+  #   extends: "devnode"
+  #   network_mode: "host" # need to bind host network to debugging using chrome: https://docs.docker.com/network/host/
