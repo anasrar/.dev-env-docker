@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  devcpp:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+      target: "dev"
+    command: "tail -F /dev/null"
+    volumes:
+      - ".:/root/project"
+      - "~/.DAP:/root/.DAP" # DAP bind
+    working_dir: "/root/project"
