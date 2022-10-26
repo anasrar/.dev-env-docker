@@ -6,9 +6,10 @@ services:
       context: "."
       dockerfile: "Dockerfile"
       target: "dev"
-    command: "bash"
+    command: "tail -F /dev/null"
     volumes:
       - ".:/root/project"
+    working_dir: "/root/project"
     # issue: https://github.com/moby/moby/issues/21051#issuecomment-325036902
     cap_add:
       - "SYS_PTRACE"

@@ -6,8 +6,9 @@ services:
       context: "."
       dockerfile: "Dockerfile"
       target: "dev"
-    command: "bash"
+    command: "tail -F /dev/null"
     volumes:
       - ".:/root/project"
+    working_dir: "/root/project"
     ports:
       - "9229:9229" # debugging port
