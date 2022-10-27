@@ -4,6 +4,9 @@ WORKDIR /root
 # # update repo packages
 RUN echo -e "http://dl-cdn.alpinelinux.org/alpine/edge/main\nhttp://dl-cdn.alpinelinux.org/alpine/edge/community" > /etc/apk/repositories
 
+# # download language
+RUN apk add --no-cache build-base
+
 FROM base AS dev
 # # development env
 # ## utilities
