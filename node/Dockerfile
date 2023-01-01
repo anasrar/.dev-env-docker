@@ -9,9 +9,8 @@ FROM base AS dev
 # ## utilities
 RUN apk add --no-cache bash curl git
 
-# ## install tmux, lazygit, neovim, tree-sitter, fd, ripgrep, stow, and packer
+# ## install tmux, lazygit, neovim, tree-sitter, fd, ripgrep, and stow
 RUN apk add --no-cache tmux lazygit neovim tree-sitter tree-sitter-cli fd ripgrep stow
-RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # ## install pnpm and yarn
 RUN npm i --location=global --force pnpm yarn
@@ -33,12 +32,11 @@ RUN npm i --location=global typescript typescript-language-server eslint_d @fsou
 RUN git clone --depth 1 https://github.com/anasrar/.dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./stow.sh bash && ./stow.sh neovim && ./stow.sh lazygit && ./stow.sh tmux
 
 # ## compile neovim plugin
-RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+RUN nvim --headless "+Lazy! sync" +qa
 
 # ## tree-sitter parser
 RUN wget https://github.com/anasrar/nvim-treesitter-parser-bin/releases/download/linux/all.zip
-RUN unzip -j all.zip *.so -d ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/
+RUN unzip -j all.zip *.so -d ~/.local/share/nvim/lazy/nvim-treesitter/parser/
 RUN rm all.zip
 
 # ## tmux color and UTF8
