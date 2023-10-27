@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  devrust:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+      target: "dev"
+    command: "tail -F /dev/null"
+    volumes:
+      - ".:/root/project"
+    working_dir: "/root/project"
